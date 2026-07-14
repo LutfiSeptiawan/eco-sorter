@@ -325,7 +325,7 @@ const Game = () => {
     if (!name.trim()) return; 
     
     try {
-      const response = await fetch('https://eco-sorter-backend-production.up.railway.app/save_score.php', {
+      const response = await fetch('https://eco-sorter-production.up.railway.app/save_score.php', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
