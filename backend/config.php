@@ -10,11 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // DATA KONEKSI 
-$host     = "roundtable.proxy.rlwy.net";
+$host     = "mysql.railway.internal";
 $user     = "root";
-$pass     = "gCHgDeXBygVInpLgWREIbeVdZgXnFByB"; 
+$pass     = "BMEdcUYpRkStSbDtgeoLWKYPdRUlWiOe"; 
 $db_name  = "railway"; 
-$port     = 36980; 
+$port     = 3306; 
 
 // Menghubungkan ke database
 $conn = new mysqli($host, $user, $pass, $db_name, $port);
