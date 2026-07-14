@@ -1,0 +1,15 @@
+# Vercel Deployment Configuration
+# File ini memastikan /api folder di-deploy ke Vercel
+
+# Jangan ignore /api folder
+!api/**
+
+# Ignore yang lainnya
+node_modules/
+dist/
+.env.local
+.env.*.local
+.DS_Store
+.vscode/
+.idea/
+.vercel/
