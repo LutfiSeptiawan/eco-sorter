@@ -109,6 +109,10 @@ const Home = () => {
     fetchLeaderboard();
   };
 
+  const closeLeaderboard = () => {
+    setShowLeaderboard(false);
+  };
+
   return (
     <div className="relative w-full h-screen h-dvh overflow-hidden flex items-center justify-center bg-slate-900 select-none">
       {/* Background */}
@@ -170,7 +174,9 @@ const Home = () => {
       {showLeaderboard && (
         <div 
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-2 sm:p-4"
-          onClick={(e) => e.target === e.currentTarget && setShowLeaderboard(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Leaderboard"
         >
           <div className="relative w-full max-w-[260px] sm:max-w-[320px] md:max-w-[380px] h-[90vh] max-h-[340px] sm:max-h-[420px] flex flex-col items-center justify-center">
             {/* Papan Kayu */}
@@ -214,7 +220,7 @@ const Home = () => {
 
             {/* Tombol Tutup */}
             <button
-              onClick={() => setShowLeaderboard(false)}
+              onClick={closeLeaderboard}
               className="absolute bottom-[10%] left-1/2 -translate-x-1/2 z-30 rounded-xl bg-gradient-to-b from-red-500 to-red-700 border border-red-400 px-4 py-1.5 text-[10px] sm:text-xs font-black uppercase text-white shadow-md active:translate-y-0.5 transition-all touch-manipulation"
             >
               TUTUP

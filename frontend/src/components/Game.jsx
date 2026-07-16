@@ -563,7 +563,7 @@ const Game = () => {
         </motion.div>
       </div>
 
-      {/* COMPONENT BARU: Hamparan Animasi Tangan Penunjuk */}
+      {/* Hamparan Animasi Tangan Penunjuk */}
       <AnimatePresence>
         {showTutorial && gameState === 'PLAYING' && (
           <motion.div 
