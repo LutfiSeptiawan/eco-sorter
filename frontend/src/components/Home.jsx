@@ -220,6 +220,7 @@ const Home = () => {
 
             {/* Tombol Tutup */}
             <button
+              type="button"
               onClick={closeLeaderboard}
               className="absolute bottom-[10%] left-1/2 -translate-x-1/2 z-30 rounded-xl bg-gradient-to-b from-red-500 to-red-700 border border-red-400 px-4 py-1.5 text-[10px] sm:text-xs font-black uppercase text-white shadow-md active:translate-y-0.5 transition-all touch-manipulation"
             >
