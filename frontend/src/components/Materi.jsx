@@ -260,7 +260,9 @@ const Materi = () => {
           />
 
           {/* Teks Materi Pembelajaran Tengah Kayu */}
-          <div className="relative z-10 w-full h-full pt-2 sm:pt-3 md:pt-3 lg:pt-4 pb-14 sm:pb-14 md:pb-14 lg:pb-16 px-2 sm:px-3 md:px-4 lg:px-6 flex flex-col justify-center overflow-y-auto overflow-x-hidden overscroll-contain">
+          {/* Posisi memakai persentase (bukan px tetap) agar teks selalu berada di area krem papan,
+              tidak pernah menabrak bingkai kayu atau sudut sobek, baik di mobile maupun desktop. */}
+          <div className="absolute z-10 inset-x-[10%] xs:inset-x-[9%] sm:inset-x-[9%] md:inset-x-[10%] lg:inset-x-[11%] top-[15%] sm:top-[14%] md:top-[13%] bottom-[27%] sm:bottom-[25%] md:bottom-[24%] flex flex-col justify-center overflow-y-auto overflow-x-hidden overscroll-contain">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentStep.id}
@@ -268,7 +270,7 @@ const Materi = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 1.02 }}
                 transition={{ duration: 0.15 }}
-                className="w-full min-h-0 flex items-center justify-center px-1 sm:px-0"
+                className="w-full min-h-0 flex items-center justify-center"
               >
                 {currentStep.content}
               </motion.div>
