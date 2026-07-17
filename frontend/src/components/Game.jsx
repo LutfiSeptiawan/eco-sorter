@@ -395,7 +395,7 @@ const Game = () => {
       const newScore = score + 10;
       setScore(newScore);
       if (newScore > 0 && newScore % 50 === 0) {
-        setLevel((l) => l + 1);
+        setLevel((l) => Math.min(l + 1, 7));
       }
     } else if (isOverOrganik || isOverAnorganik || isOverB3) {
       loseLife();
