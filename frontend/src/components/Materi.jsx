@@ -6,12 +6,12 @@ const TAHAPAN_MATERI = [
   {
     id: 'pembuka',
     content: (
-      <div className="w-full max-w-full break-words text-slate-800 font-bold text-center space-y-1 sm:space-y-2 px-0.5 sm:px-3 md:px-5">
-        <p className="text-xs sm:text-lg md:text-xl font-black text-amber-950 leading-tight">Halo Kawan... </p>
-        <p className="text-[9px] sm:text-xs md:text-sm font-extrabold leading-snug text-slate-700">
+      <div className="w-full max-w-full break-words text-slate-800 font-bold text-center space-y-1 sm:space-y-1.5 lg:space-y-2 px-0.5 sm:px-2 lg:px-4">
+        <p className="text-[10px] sm:text-xs lg:text-lg xl:text-xl font-black text-amber-950 leading-tight">Halo Kawan... </p>
+        <p className="text-[8px] sm:text-[9px] lg:text-xs xl:text-sm font-extrabold leading-snug text-slate-700">
           Buang sampah itu harus sesuai kategorinya ya!
         </p>
-        <p className="text-[9px] sm:text-xs md:text-sm font-extrabold leading-snug text-slate-700">
+        <p className="text-[8px] sm:text-[9px] lg:text-xs xl:text-sm font-extrabold leading-snug text-slate-700">
           Yuk, kita belajar memilah antara <span className="text-green-600 font-black">Sampah Organik</span>, <span className="text-red-600 font-black">Sampah Anorganik</span>, dan <span className="text-yellow-600 font-black">Sampah B3</span>.
         </p>
       </div>
@@ -20,17 +20,17 @@ const TAHAPAN_MATERI = [
   {
     id: 'organik',
     content: (
-      <div className="w-full max-w-full break-words text-slate-800 font-medium px-0.5 sm:px-3 md:px-5 min-h-0 flex flex-col justify-center py-0.5 sm:py-1">
-        <h3 className="text-xs sm:text-base md:text-lg font-black text-green-700 mb-0.5 leading-tight">🌿 SAMPAH ORGANIK</h3>
-        <p className="text-[9px] sm:text-[10px] md:text-xs font-bold text-slate-700 leading-snug">
+      <div className="w-full max-w-full break-words text-slate-800 font-medium px-0.5 sm:px-2 lg:px-4 min-h-0 flex flex-col justify-center py-0.5 sm:py-0.75 lg:py-1">
+        <h3 className="text-[9px] sm:text-xs lg:text-base xl:text-lg font-black text-green-700 mb-0.5 leading-tight">🌿 SAMPAH ORGANIK</h3>
+        <p className="text-[8px] sm:text-[8.5px] lg:text-xs xl:text-sm font-bold text-slate-700 leading-snug">
           Sampah yang mudah terurai oleh makhluk hidup/pembusukan alami. Contohnya seperti:
         </p>
-        <ul className="list-disc list-inside mt-0.5 space-y-0.5 text-[9px] sm:text-[10px] md:text-xs text-slate-600 font-bold pl-1">
+        <ul className="list-disc list-inside mt-0.5 space-y-0.5 text-[8px] sm:text-[8.5px] lg:text-xs xl:text-sm text-slate-600 font-bold pl-1">
           <li>Sisa makanan, sayur, dan buah.</li>
           <li>Daun kering dan ranting.</li>
           <li>Kotoran sisa hewan.</li>
         </ul>
-        <div className="mt-1 bg-green-100 border border-green-300 px-1.5 py-0.5 rounded-lg text-[8px] sm:text-[9px] md:text-xs text-green-800 font-black leading-snug">
+        <div className="mt-0.75 lg:mt-1 bg-green-100 border border-green-300 px-1 sm:px-1.5 lg:px-2 py-0.5 rounded-lg text-[7px] sm:text-[8px] lg:text-xs xl:text-sm text-green-800 font-black leading-snug">
           ♻️Manfaat: Dapat diolah menjadi pupuk kompos.
         </div>
       </div>
@@ -39,17 +39,17 @@ const TAHAPAN_MATERI = [
   {
     id: 'anorganik',
     content: (
-      <div className="w-full max-w-full break-words text-slate-800 font-medium px-0.5 sm:px-3 md:px-5 min-h-0 flex flex-col justify-center py-0.5 sm:py-1">
-        <h3 className="text-xs sm:text-base md:text-lg font-black text-red-600 mb-0.5 leading-tight">🥤 SAMPAH ANORGANIK</h3>
-        <p className="text-[9px] sm:text-[10px] md:text-xs font-bold text-slate-700 leading-snug">
+      <div className="w-full max-w-full break-words text-slate-800 font-medium px-0.5 sm:px-2 lg:px-4 min-h-0 flex flex-col justify-center py-0.5 sm:py-0.75 lg:py-1">
+        <h3 className="text-[9px] sm:text-xs lg:text-base xl:text-lg font-black text-red-600 mb-0.5 leading-tight">🥤 SAMPAH ANORGANIK</h3>
+        <p className="text-[8px] sm:text-[8.5px] lg:text-xs xl:text-sm font-bold text-slate-700 leading-snug">
           Sampah buatan manusia yang sangat sulit membusuk secara alami. Contohnya seperti:
         </p>
-        <ul className="list-disc list-inside mt-0.5 space-y-0.5 text-[9px] sm:text-[10px] md:text-xs text-slate-600 font-bold pl-1">
+        <ul className="list-disc list-inside mt-0.5 space-y-0.5 text-[8px] sm:text-[8.5px] lg:text-xs xl:text-sm text-slate-600 font-bold pl-1">
           <li>Plastik, styrofoam, dan sedotan.</li>
           <li>Kaleng minuman dan botol logam bekas.</li>
           <li>Kaca, botol, dan keramik.</li>
         </ul>
-        <div className="mt-1 bg-red-100 border border-red-300 px-1.5 py-0.5 rounded-lg text-[8px] sm:text-[9px] md:text-xs text-red-800 font-black leading-snug">
+        <div className="mt-0.75 lg:mt-1 bg-red-100 border border-red-300 px-1 sm:px-1.5 lg:px-2 py-0.5 rounded-lg text-[7px] sm:text-[8px] lg:text-xs xl:text-sm text-red-800 font-black leading-snug">
           ⏰ Fakta: Plastik membutuhkan 100 tahun hancur untuk terurai!
         </div>
       </div>
@@ -58,17 +58,17 @@ const TAHAPAN_MATERI = [
   {
     id: 'b3',
     content: (
-      <div className="w-full max-w-full break-words text-slate-800 font-medium px-0.5 sm:px-3 md:px-5 min-h-0 flex flex-col justify-center py-0.5 sm:py-1">
-        <h3 className="text-xs sm:text-base md:text-lg font-black text-yellow-600 mb-0.5 leading-tight">⚠️ LIMBAH B3</h3>
-        <p className="text-[9px] sm:text-[10px] md:text-xs font-bold text-slate-700 leading-snug">
+      <div className="w-full max-w-full break-words text-slate-800 font-medium px-0.5 sm:px-2 lg:px-4 min-h-0 flex flex-col justify-center py-0.5 sm:py-0.75 lg:py-1">
+        <h3 className="text-[9px] sm:text-xs lg:text-base xl:text-lg font-black text-yellow-600 mb-0.5 leading-tight">⚠️ LIMBAH B3</h3>
+        <p className="text-[8px] sm:text-[8.5px] lg:text-xs xl:text-sm font-bold text-slate-700 leading-snug">
           Sisa bahan berbahaya yang mengandung racun kimia aktif. Contohnya seperti:
         </p>
-        <ul className="list-disc list-inside mt-0.5 space-y-0.5 text-[9px] sm:text-[10px] md:text-xs text-slate-600 font-bold pl-1">
+        <ul className="list-disc list-inside mt-0.5 space-y-0.5 text-[8px] sm:text-[8.5px] lg:text-xs xl:text-sm text-slate-600 font-bold pl-1">
           <li>Baterai bekas dan kabel elektronik.</li>
           <li>Lampu neon dan bohlam.</li>
           <li>Kemasan detergen dan obat serangga.</li>
         </ul>
-        <div className="mt-1 bg-yellow-100 border border-yellow-300 px-1.5 py-0.5 rounded-lg text-[8px] sm:text-[9px] md:text-xs text-amber-800 font-black leading-snug">
+        <div className="mt-0.75 lg:mt-1 bg-yellow-100 border border-yellow-300 px-1 sm:px-1.5 lg:px-2 py-0.5 rounded-lg text-[7px] sm:text-[8px] lg:text-xs xl:text-sm text-amber-800 font-black leading-snug">
           💀 Bahaya: Dapat menyebabkan keracunan dan pencemaran air tanah jika dibuang sembarangan.
         </div>
       </div>
@@ -210,7 +210,7 @@ const Materi = () => {
       />
 
       {/* Tombol Musik + Home Kanan Atas */}
-      <div className="absolute top-2 right-2 z-50 flex items-center gap-2">
+      <div className="absolute top-2 sm:top-3 lg:top-4 right-2 sm:right-3 lg:right-4 z-50 flex items-center gap-1 sm:gap-2">
         <button
           onClick={toggleMusic}
           className="hover:scale-110 active:scale-95 transition-transform touch-manipulation focus:outline-none"
@@ -218,7 +218,7 @@ const Materi = () => {
           <img
             src={isMusicPlaying ? '/assets/materi/TbMusik.png' : '/assets/materi/TbMusik_Mati.png'}
             alt={isMusicPlaying ? 'Musik' : 'Musik Mati'}
-            className="w-8 h-8 sm:w-11 sm:h-11 md:w-14 md:h-14 object-contain"
+            className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 xl:w-14 xl:h-14 object-contain"
           />
         </button>
 
@@ -229,27 +229,27 @@ const Materi = () => {
           <img
             src="/assets/materi/TbHome.png"
             alt="Ke Halaman Utama"
-            className="w-8 h-8 sm:w-11 sm:h-11 md:w-14 md:h-14 object-contain"
+            className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 xl:w-14 xl:h-14 object-contain"
           />
         </button>
       </div>
 
       {/* Area Utama Konten Fleksibel */}
-      <div className="relative z-10 w-full h-full max-w-4xl mx-auto flex items-center justify-center px-2 sm:px-4">
+      <div className="relative z-10 w-full h-full max-w-7xl mx-auto flex items-center justify-center px-1 sm:px-2 lg:px-4">
         
         {/* Gambar Orang Kiri */}
-        <div className="w-[22%] sm:w-[25%] max-w-[180px] self-end mb-2 z-20">
+        <div className="hidden sm:block w-[15%] lg:w-[20%] max-w-[200px] self-end mb-1 sm:mb-2 z-20">
           <motion.img 
             src="/assets/materi/Orang.png" 
             alt="Karakter Orang"
-            className="w-full h-auto object-contain max-h-[75vh]"
+            className="w-full h-auto object-contain max-h-[70vh]"
             animate={{ y: [0, -4, 0] }}
             transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
           />
         </div>
 
         {/* Kotak Kontainer Papan Kanan */}
-        <div className="relative w-[84%] sm:w-[72%] h-[65vh] sm:h-auto min-h-[55vh] sm:min-h-[65vh] max-h-[82vh] flex items-center justify-center mt-12 sm:mt-16">
+        <div className="relative w-full sm:w-[75%] lg:w-[65%] aspect-video sm:aspect-auto h-auto min-h-[50vh] sm:min-h-[60vh] lg:min-h-[65vh] max-h-[85vh] flex items-center justify-center sm:mt-8 lg:mt-12">
           {/* Gambar Papan Kayu */}
           <img 
             src="/assets/materi/Papan.png" 
@@ -258,7 +258,7 @@ const Materi = () => {
           />
 
           {/* Teks Materi Pembelajaran Tengah Kayu */}
-          <div className="relative z-10 w-full h-full pt-2 sm:pt-3 pb-11 px-1.5 sm:px-6 md:px-8 flex flex-col justify-start overflow-y-auto overflow-x-hidden overscroll-contain">
+          <div className="relative z-10 w-full h-full pt-2 sm:pt-3 lg:pt-4 pb-10 sm:pb-12 lg:pb-14 px-1.5 sm:px-3 lg:px-6 flex flex-col justify-start overflow-y-auto overflow-x-hidden overscroll-contain">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentStep.id}
@@ -274,13 +274,13 @@ const Materi = () => {
           </div>
 
           {/* Tombol Kembali dan Lanjut */}
-          <div className="absolute bottom-2 left-3 right-3 sm:left-8 sm:right-8 z-30 flex items-center justify-between gap-1.5">
+          <div className="absolute bottom-1 sm:bottom-2 lg:bottom-3 left-2 right-2 sm:left-3 sm:right-3 lg:left-4 lg:right-4 z-30 flex items-center justify-between gap-1">
             {!isFirstStep && (
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleBack}
-                className="px-3 sm:px-5 py-1 rounded-lg text-[9px] sm:text-xs font-black text-white uppercase tracking-wider shadow-md border border-black/10 bg-gradient-to-r from-red-500 to-rose-600 shadow-[0_2px_0_rgb(159,18,57)] flex-shrink-0"
+                className="px-2.5 sm:px-4 lg:px-6 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[8px] sm:text-[9px] lg:text-xs xl:text-sm font-black text-white uppercase tracking-wider shadow-md border border-black/10 bg-gradient-to-r from-red-500 to-rose-600 shadow-[0_2px_0_rgb(159,18,57)] sm:shadow-[0_3px_0_rgb(159,18,57)] flex-shrink-0"
               >
                 Kembali
               </motion.button>
@@ -290,10 +290,10 @@ const Materi = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleNext}
-              className={`px-3 sm:px-5 py-1 rounded-lg text-[9px] sm:text-xs font-black text-white uppercase tracking-wider shadow-md border border-black/10 ml-auto flex-shrink-0
+              className={`px-2.5 sm:px-4 lg:px-6 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[8px] sm:text-[9px] lg:text-xs xl:text-sm font-black text-white uppercase tracking-wider shadow-md border border-black/10 ml-auto flex-shrink-0
                 ${isLastStep 
-                  ? 'bg-gradient-to-r from-orange-500 to-amber-600 shadow-[0_2px_0_rgb(194,65,12)]' 
-                  : 'bg-gradient-to-r from-blue-500 to-indigo-600 shadow-[0_2px_0_rgb(29,78,216)]'
+                  ? 'bg-gradient-to-r from-orange-500 to-amber-600 shadow-[0_2px_0_rgb(194,65,12)] sm:shadow-[0_3px_0_rgb(194,65,12)]' 
+                  : 'bg-gradient-to-r from-blue-500 to-indigo-600 shadow-[0_2px_0_rgb(29,78,216)] sm:shadow-[0_3px_0_rgb(29,78,216)]'
                 }
               `}
             >
