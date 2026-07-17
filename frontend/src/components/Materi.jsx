@@ -213,23 +213,25 @@ const Materi = () => {
       <div className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 z-50 flex items-center gap-1 sm:gap-2">
         <button
           onClick={toggleMusic}
-          className="hover:scale-110 active:scale-95 transition-transform touch-manipulation focus:outline-none"
+          aria-label="Musik"
+          className="min-w-11 min-h-11 flex items-center justify-center p-1 rounded-full hover:scale-110 active:scale-95 transition-transform touch-manipulation focus:outline-none"
         >
           <img
             src={isMusicPlaying ? '/assets/materi/TbMusik.png' : '/assets/materi/TbMusik_Mati.png'}
             alt={isMusicPlaying ? 'Musik' : 'Musik Mati'}
-            className="w-7 h-7 sm:w-11 sm:h-11 md:w-12 md:h-12 lg:w-14 lg:h-14 object-contain"
+            className="w-full h-full max-w-7 max-h-7 sm:max-w-11 sm:max-h-11 md:max-w-12 md:max-h-12 lg:max-w-14 lg:max-h-14 object-contain"
           />
         </button>
 
         <button
           onClick={() => navigate('/')}
-          className="hover:scale-110 active:scale-95 transition-transform touch-manipulation focus:outline-none"
+          aria-label="Ke Halaman Utama"
+          className="min-w-11 min-h-11 flex items-center justify-center p-1 rounded-full hover:scale-110 active:scale-95 transition-transform touch-manipulation focus:outline-none"
         >
           <img
             src="/assets/materi/TbHome.png"
             alt="Ke Halaman Utama"
-            className="w-7 h-7 sm:w-11 sm:h-11 md:w-12 md:h-12 lg:w-14 lg:h-14 object-contain"
+            className="w-full h-full max-w-7 max-h-7 sm:max-w-11 sm:max-h-11 md:max-w-12 md:max-h-12 lg:max-w-14 lg:max-h-14 object-contain"
           />
         </button>
       </div>
@@ -258,7 +260,7 @@ const Materi = () => {
           />
 
           {/* Teks Materi Pembelajaran Tengah Kayu */}
-          <div className="relative z-10 w-full h-full pt-2 sm:pt-3 md:pt-3 lg:pt-4 pb-11 sm:pb-12 md:pb-12 lg:pb-14 px-2 sm:px-3 md:px-4 lg:px-6 flex flex-col justify-center overflow-y-auto overflow-x-hidden overscroll-contain">
+          <div className="relative z-10 w-full h-full pt-2 sm:pt-3 md:pt-3 lg:pt-4 pb-14 sm:pb-14 md:pb-14 lg:pb-16 px-2 sm:px-3 md:px-4 lg:px-6 flex flex-col justify-center overflow-y-auto overflow-x-hidden overscroll-contain">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentStep.id}
@@ -280,7 +282,7 @@ const Materi = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleBack}
-                className="min-h-[30px] sm:min-h-[34px] md:min-h-[36px] px-3 sm:px-4 md:px-5 lg:px-6 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[clamp(9px,1.3vw,14px)] font-black text-white uppercase tracking-wider shadow-md border border-black/10 bg-gradient-to-r from-red-500 to-rose-600 shadow-[0_2px_0_rgb(159,18,57)] sm:shadow-[0_3px_0_rgb(159,18,57)] flex-shrink-0 flex items-center justify-center"
+                className="min-h-11 min-w-[64px] px-3 sm:px-4 md:px-5 lg:px-6 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[clamp(9px,1.3vw,14px)] font-black text-white uppercase tracking-wider shadow-md border border-black/10 bg-gradient-to-r from-red-500 to-rose-600 shadow-[0_2px_0_rgb(159,18,57)] sm:shadow-[0_3px_0_rgb(159,18,57)] flex-shrink-0 flex items-center justify-center"
               >
                 Kembali
               </motion.button>
@@ -290,7 +292,7 @@ const Materi = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleNext}
-              className={`min-h-[30px] sm:min-h-[34px] md:min-h-[36px] px-3 sm:px-4 md:px-5 lg:px-6 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[clamp(9px,1.3vw,14px)] font-black text-white uppercase tracking-wider shadow-md border border-black/10 ml-auto flex-shrink-0 flex items-center justify-center
+              className={`min-h-11 min-w-[64px] px-3 sm:px-4 md:px-5 lg:px-6 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[clamp(9px,1.3vw,14px)] font-black text-white uppercase tracking-wider shadow-md border border-black/10 ml-auto flex-shrink-0 flex items-center justify-center
                 ${isLastStep
                   ? 'bg-gradient-to-r from-orange-500 to-amber-600 shadow-[0_2px_0_rgb(194,65,12)] sm:shadow-[0_3px_0_rgb(194,65,12)]'
                   : 'bg-gradient-to-r from-blue-500 to-indigo-600 shadow-[0_2px_0_rgb(29,78,216)] sm:shadow-[0_3px_0_rgb(29,78,216)]'
