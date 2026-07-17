@@ -1,76 +1,120 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const DATA_SAMPAH = [
-  { id: 1, img: '/assets/game/or_pisang.png', type: 'organik' },
-  { id: 2, img: '/assets/game/an_gelas.png', type: 'anorganik' },
-  { id: 3, img: '/assets/game/lampu.png', type: 'b3' },
-  { id: 4, img: '/assets/game/an_kaleng.png', type: 'anorganik' },
-  { id: 5, img: '/assets/game/Organik2.png', type: 'organik' },
-  { id: 6, img: '/assets/game/NonOrganik1.png', type: 'anorganik' },
-  { id: 7, img: '/assets/game/b3_spray.png', type: 'b3' },
-  { id: 8, img: '/assets/game/NonOrganik2.png', type: 'anorganik' },
-  { id: 9, img: '/assets/game/Copy of Organik1.png', type: 'organik' },
-  { id: 10, img: '/assets/game/kaleng_cat.png', type: 'b3' },
-  { id: 11, img: '/assets/game/Remot_TV.png', type: 'b3' },
-  { id: 12, img: '/assets/game/Hp.png', type: 'b3' },
-  { id: 13, img: '/assets/game/Susu.png', type: 'anorganik' },
-  { id: 14, img: '/assets/game/Sayur.png', type: 'organik' },
-  { id: 15, img: '/assets/game/Telur.png', type: 'organik' },
-  { id: 16, img: '/assets/game/Baterai.png', type: 'b3' },
-  { id: 17, img: '/assets/game/Styrofoam.png', type: 'anorganik' },
+const TAHAPAN_MATERI = [
+  {
+    id: 'pembuka',
+    content: (
+      <div className="w-full max-w-full break-words text-slate-800 font-bold text-center space-y-1 sm:space-y-1.5 md:space-y-2 lg:space-y-2 px-1 sm:px-2 md:px-3 lg:px-4">
+        <p className="text-[11px] sm:text-sm md:text-base lg:text-lg xl:text-xl font-black text-amber-950 leading-tight">Halo Kawan... </p>
+        <p className="text-[9px] sm:text-xs md:text-sm lg:text-base xl:text-lg font-extrabold leading-snug text-slate-700">
+          Buang sampah itu harus sesuai kategorinya ya!
+        </p>
+        <p className="text-[9px] sm:text-xs md:text-sm lg:text-base xl:text-lg font-extrabold leading-snug text-slate-700">
+          Yuk, kita belajar memilah antara <span className="text-green-600 font-black">Sampah Organik</span>, <span className="text-red-600 font-black">Sampah Anorganik</span>, dan <span className="text-yellow-600 font-black">Sampah B3</span>.
+        </p>
+      </div>
+    )
+  },
+  {
+    id: 'organik',
+    content: (
+      <div className="w-full max-w-full break-words text-slate-800 font-medium px-1 sm:px-2 md:px-3 lg:px-4 min-h-0 flex flex-col justify-center py-0.5 sm:py-0.75 md:py-1 lg:py-1">
+        <h3 className="text-[10px] sm:text-xs md:text-sm lg:text-base xl:text-lg font-black text-green-700 mb-0.5 leading-tight">🌿 SAMPAH ORGANIK</h3>
+        <p className="text-[9px] sm:text-[8.5px] md:text-xs lg:text-xs xl:text-sm font-bold text-slate-700 leading-snug">
+          Sampah yang mudah terurai oleh makhluk hidup/pembusukan alami. Contohnya seperti:
+        </p>
+        <ul className="list-disc list-inside mt-0.5 space-y-0.5 text-[9px] sm:text-[8.5px] md:text-xs lg:text-xs xl:text-sm text-slate-600 font-bold pl-1">
+          <li>Sisa makanan, sayur, dan buah.</li>
+          <li>Daun kering dan ranting.</li>
+          <li>Kotoran sisa hewan.</li>
+        </ul>
+        <div className="mt-0.75 md:mt-1 lg:mt-1 bg-green-100 border border-green-300 px-1.5 sm:px-1.5 md:px-2 lg:px-2 py-0.5 sm:py-1 rounded-lg text-[8px] sm:text-[8px] md:text-xs lg:text-xs xl:text-sm text-green-800 font-black leading-snug">
+          ♻️Manfaat: Dapat diolah menjadi pupuk kompos.
+        </div>
+      </div>
+    )
+  },
+  {
+    id: 'anorganik',
+    content: (
+      <div className="w-full max-w-full break-words text-slate-800 font-medium px-1 sm:px-2 md:px-3 lg:px-4 min-h-0 flex flex-col justify-center py-0.5 sm:py-0.75 md:py-1 lg:py-1">
+        <h3 className="text-[10px] sm:text-xs md:text-sm lg:text-base xl:text-lg font-black text-red-600 mb-0.5 leading-tight">🥤 SAMPAH ANORGANIK</h3>
+        <p className="text-[9px] sm:text-[8.5px] md:text-xs lg:text-xs xl:text-sm font-bold text-slate-700 leading-snug">
+          Sampah buatan manusia yang sangat sulit membusuk secara alami. Contohnya seperti:
+        </p>
+        <ul className="list-disc list-inside mt-0.5 space-y-0.5 text-[9px] sm:text-[8.5px] md:text-xs lg:text-xs xl:text-sm text-slate-600 font-bold pl-1">
+          <li>Plastik, styrofoam, dan sedotan.</li>
+          <li>Kaleng minuman dan botol logam bekas.</li>
+          <li>Kaca, botol, dan keramik.</li>
+        </ul>
+        <div className="mt-0.75 md:mt-1 lg:mt-1 bg-red-100 border border-red-300 px-1.5 sm:px-1.5 md:px-2 lg:px-2 py-0.5 sm:py-1 rounded-lg text-[8px] sm:text-[8px] md:text-xs lg:text-xs xl:text-sm text-red-800 font-black leading-snug">
+          ⏰ Fakta: Plastik membutuhkan 100 tahun hancur untuk terurai!
+        </div>
+      </div>
+    )
+  },
+  {
+    id: 'b3',
+    content: (
+      <div className="w-full max-w-full break-words text-slate-800 font-medium px-1 sm:px-2 md:px-3 lg:px-4 min-h-0 flex flex-col justify-center py-0.5 sm:py-0.75 md:py-1 lg:py-1">
+        <h3 className="text-[10px] sm:text-xs md:text-sm lg:text-base xl:text-lg font-black text-yellow-600 mb-0.5 leading-tight">⚠️ LIMBAH B3</h3>
+        <p className="text-[9px] sm:text-[8.5px] md:text-xs lg:text-xs xl:text-sm font-bold text-slate-700 leading-snug">
+          Sisa bahan berbahaya yang mengandung racun kimia aktif. Contohnya seperti:
+        </p>
+        <ul className="list-disc list-inside mt-0.5 space-y-0.5 text-[9px] sm:text-[8.5px] md:text-xs lg:text-xs xl:text-sm text-slate-600 font-bold pl-1">
+          <li>Baterai bekas dan kabel elektronik.</li>
+          <li>Lampu neon dan bohlam.</li>
+          <li>Kemasan detergen dan obat serangga.</li>
+        </ul>
+        <div className="mt-0.75 md:mt-1 lg:mt-1 bg-yellow-100 border border-yellow-300 px-1.5 sm:px-1.5 md:px-2 lg:px-2 py-0.5 sm:py-1 rounded-lg text-[8px] sm:text-[8px] md:text-xs lg:text-xs xl:text-sm text-amber-800 font-black leading-snug">
+          💀 Bahaya: Dapat menyebabkan keracunan dan pencemaran air tanah jika dibuang sembarangan.
+        </div>
+      </div>
+    )
+  }
 ];
 
-const Game = () => {
+const { AnimatePresence: AP } = { AnimatePresence };
+
+const Materi = () => {
   const navigate = useNavigate();
-  const [score, setScore] = useState(0);
-  const [lives, setLives] = useState(3);
-  const [hearts, setHearts] = useState([true, true, true]);
-  const [level, setLevel] = useState(1);
-  const [activeTrash, setActiveTrash] = useState([]);
-  const [gameState, setGameState] = useState('PLAYING');
-  const [nickname, setNickname] = useState('');
-  const [binPositions, setBinPositions] = useState({ anorganik: null, organik: null, b3: null });
-  const [isLandscape, setIsLandscape] = useState(() => {
-    if (typeof window === 'undefined') return true;
-    return window.innerWidth >= window.innerHeight;
-  });
-  const [isMuted, setIsMuted] = useState(() => {
+  const [step, setStep] = useState(0);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(() => {
     if (typeof window === 'undefined') return false;
-    return localStorage.getItem('eco-music-muted') === 'true';
+    return localStorage.getItem('eco-music-muted') !== 'true';
   });
-  const [notificationMessage, setNotificationMessage] = useState('');
-  const [notificationType, setNotificationType] = useState('success'); 
-  const [showNotification, setShowNotification] = useState(false);
   const [isChecking, setIsChecking] = useState(true);
-  
-  // FITUR BARU: State kontrol visual petunjuk tangan di awal game
-  const [showTutorial, setShowTutorial] = useState(true);
+  const materiAudioRef = useRef(null);
 
-  const draggingIdRef = useRef(null);
-  const handledTrashIdsRef = useRef(new Set());
-  const audioRef = useRef(null);
-  const soundWrongRef = useRef(null);
+  const stopExternalMateriAudio = () => {
+    if (typeof window !== 'undefined' && window.__ecoMateriAutoAudio && window.__ecoMateriAutoAudio.__ecoSource !== 'materi') {
+      window.__ecoMateriAutoAudio.pause();
+      window.__ecoMateriAutoAudio.currentTime = 0;
+      window.__ecoMateriAutoAudio = null;
+    }
+  };
 
-  const TRASH_Y = '6vh';
+  const handleNext = () => {
+    if (step < TAHAPAN_MATERI.length - 1) {
+      setStep(step + 1);
+    } else {
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('eco-allow-game', 'true');
+      }
+      navigate('/game');
+    }
+  };
 
-  const createTrash = useCallback((xOffset = 0) => {
-    const randomType = DATA_SAMPAH[Math.floor(Math.random() * DATA_SAMPAH.length)];
-    const safeWidth = typeof window !== 'undefined' ? window.innerWidth : 800;
-    return {
-      ...randomType,
-      instanceId: Date.now() + Math.random(),
-      x: safeWidth + 50 + xOffset,
-      y: TRASH_Y,
-    };
-  }, []);
+  const handleBack = () => {
+    if (step > 0) {
+      setStep(step - 1);
+    }
+  };
 
-  const speed = 2 + level * 1.2;
-
-  // Route Guard: Cek akses sebelum render
   useEffect(() => {
-    const allowed = typeof window !== 'undefined' && sessionStorage.getItem('eco-allow-game') === 'true';
+    const allowed = typeof window !== 'undefined' && sessionStorage.getItem('eco-allow-materi') === 'true';
     if (!allowed) {
       navigate('/', { replace: true });
     } else {
@@ -78,645 +122,193 @@ const Game = () => {
     }
   }, [navigate]);
 
-  // Initialize Audio
+  const currentStep = TAHAPAN_MATERI[step];
+  const isLastStep = step === TAHAPAN_MATERI.length - 1;
+  const isFirstStep = step === 0;
+
   useEffect(() => {
-    try {
-      document.querySelectorAll('audio').forEach((a) => {
-        try { a.pause(); a.currentTime = 0; } catch (e) {}
-      });
-    } catch (e) {}
+    if (typeof window === 'undefined') return;
 
-    const muted = localStorage.getItem('eco-music-muted') === 'true';
-    if (!muted && !audioRef.current) {
-      audioRef.current = new Audio('/assets/audio/bensound-funnysong.ogg');
-      audioRef.current.loop = true;
-      audioRef.current.volume = 0.5;
-      audioRef.current.play().catch(() => {});
-    }
+    const autoPlayFromHome = sessionStorage.getItem('eco-play-materi') === 'true';
+    const isMuted = localStorage.getItem('eco-music-muted') === 'true';
+    stopExternalMateriAudio();
 
-    return () => {
-      if (audioRef.current && gameState === 'GAMEOVER') {
-        audioRef.current.pause();
-        audioRef.current.currentTime = 0;
+    if (autoPlayFromHome) {
+      sessionStorage.removeItem('eco-play-materi');
+      if (!isMuted && window.__ecoMateriAutoAudio) {
+        materiAudioRef.current = window.__ecoMateriAutoAudio;
+        materiAudioRef.current.loop = true;
+        if (materiAudioRef.current.paused) {
+          materiAudioRef.current.play().catch(() => {});
+        }
+        setIsMusicPlaying(true);
+        return;
       }
-    };
-  }, []);
-
-  // Control audio based on muted state
-  useEffect(() => {
-    if (isMuted) {
-      if (audioRef.current) {
-        audioRef.current.pause();
+      if (!isMuted) {
+        const audio = document.getElementById('materi-bgm');
+        if (audio) {
+          materiAudioRef.current = audio;
+          audio.loop = true;
+          audio.play().catch(() => {});
+        }
+        setIsMusicPlaying(true);
       }
-      return;
     }
-
-    if (!audioRef.current) {
-      audioRef.current = new Audio('/assets/audio/bensound-funnysong.ogg');
-      audioRef.current.loop = true;
-      audioRef.current.volume = 0.5;
-    }
-    audioRef.current.play().catch(() => {});
-  }, [isMuted]);
-
-  useEffect(() => {
-    if (gameState !== 'GAMEOVER') return;
-
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-    }
-
-    if (isMuted) return;
-
-    if (!soundWrongRef.current) {
-      soundWrongRef.current = new Audio('/assets/audio/sound-wrong.wav');
-      soundWrongRef.current.volume = 0.65;
-    }
-
-    soundWrongRef.current.currentTime = 0;
-    soundWrongRef.current.play().catch(() => {});
-  }, [gameState, isMuted]);
-
-  useEffect(() => {
-    localStorage.setItem('eco-music-muted', isMuted ? 'true' : 'false');
-  }, [isMuted]);
-
-  // Cleanup audio ketika komponen unmount
-  useEffect(() => {
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.currentTime = 0;
-      }
-    };
   }, []);
 
   useEffect(() => {
-    const updateBinPositions = () => {
-      const anorganikBin = document.getElementById('bin-anorganik');
-      const organikBin = document.getElementById('bin-organik');
-      const b3Bin = document.getElementById('bin-b3');
-      
-      setBinPositions({
-        organik: organikBin ? organikBin.getBoundingClientRect() : null,
-        anorganik: anorganikBin ? anorganikBin.getBoundingClientRect() : null,
-        b3: b3Bin ? b3Bin.getBoundingClientRect() : null,
-      });
-    };
+    const audioElement = materiAudioRef.current || window.__ecoMateriAutoAudio || document.getElementById('materi-bgm');
+    materiAudioRef.current = audioElement;
+    if (!audioElement) return;
 
-    const timeoutId = setTimeout(updateBinPositions, 150);
+    audioElement.loop = true;
+    if (isMusicPlaying) {
+      audioElement.play().catch(() => {});
+    } else {
+      audioElement.pause();
+    }
 
-    window.addEventListener('resize', updateBinPositions);
     return () => {
-      clearTimeout(timeoutId);
-      window.removeEventListener('resize', updateBinPositions);
-    };
-  }, [level]);
-
-  const updateOrientation = useCallback(() => {
-    const isLandscapeScreen =
-      window.matchMedia('(orientation: landscape)').matches ||
-      window.innerWidth >= window.innerHeight;
-    setIsLandscape(isLandscapeScreen);
-  }, []);
-
-  const tryLockLandscape = useCallback(async () => {
-    const orientation = window.screen?.orientation;
-    if (orientation?.lock) {
       try {
-        await orientation.lock('landscape');
-      } catch (error) {
-        if (error?.name !== 'AbortError' && error?.name !== 'NotSupportedError') {
-          console.warn('Unable to lock orientation:', error);
+        if (materiAudioRef.current) {
+          materiAudioRef.current.pause();
+          materiAudioRef.current.currentTime = 0;
         }
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    updateOrientation();
-    tryLockLandscape();
-
-    const portraitQuery = window.matchMedia('(orientation: portrait)');
-    const onOrientationChange = () => {
-      updateOrientation();
-      tryLockLandscape();
-    };
-
-    portraitQuery.addEventListener?.('change', onOrientationChange);
-    portraitQuery.addListener?.(onOrientationChange);
-    window.addEventListener('orientationchange', onOrientationChange);
-    window.addEventListener('resize', updateOrientation);
-
-    return () => {
-      portraitQuery.removeEventListener?.('change', onOrientationChange);
-      portraitQuery.removeListener?.(onOrientationChange);
-      window.removeEventListener('orientationchange', onOrientationChange);
-      window.removeEventListener('resize', updateOrientation);
-    };
-  }, [tryLockLandscape, updateOrientation]);
-
-  useEffect(() => {
-    document.body.style.overflow = isLandscape ? '' : 'hidden';
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isLandscape]);
-
-  // Spawn awal sampah
-  useEffect(() => {
-    if (gameState !== 'PLAYING') return;
-    const safeWidth = typeof window !== 'undefined' ? window.innerWidth : 800;
-    const s1 = DATA_SAMPAH[Math.floor(Math.random() * DATA_SAMPAH.length)];
-    const s2 = DATA_SAMPAH[Math.floor(Math.random() * DATA_SAMPAH.length)];
-    const s3 = DATA_SAMPAH[Math.floor(Math.random() * DATA_SAMPAH.length)];
-
-    // Sampah awal digeser agak ke tengah sedikit agar langsung kena tunjuk animasi kawan
-    setActiveTrash([
-      { ...s1, instanceId: Date.now() + 0.1, x: safeWidth * 0.65, y: TRASH_Y },
-      { ...s2, instanceId: Date.now() + 0.2, x: safeWidth * 0.80, y: TRASH_Y },
-      { ...s3, instanceId: Date.now() + 0.3, x: safeWidth * 0.95, y: TRASH_Y }
-    ]);
-
-    // Timer pengaman: Jika user bengong, tutorial hilang sendiri dalam 6 detik
-    const tutorialTimer = setTimeout(() => {
-      setShowTutorial(false);
-    }, 6000);
-
-    return () => clearTimeout(tutorialTimer);
-  }, [gameState]);
-
-  // Spawn sampah berkala
-  useEffect(() => {
-    if (gameState !== 'PLAYING') return;
-
-    const spawnInterval = setInterval(() => {
-      const extraOffset = Math.floor(Math.random() * 120);
-      setActiveTrash(prev => [...prev, createTrash(extraOffset)]);
-    }, Math.max(1000, 2500 - level * 250));
-
-    return () => clearInterval(spawnInterval);
-  }, [level, gameState, createTrash]);
-
-  const loseLife = useCallback(() => {
-    setLives((prev) => {
-      const newLives = prev - 1;
-      if (newLives <= 0) {
-        setGameState('GAMEOVER');
-      }
-      return newLives;
-    });
-    setHearts((prev) => {
-      const newHearts = [...prev];
-      const lastActive = newHearts.lastIndexOf(true);
-      if (lastActive !== -1) {
-        newHearts[lastActive] = false;
-      }
-      return newHearts;
-    });
-  }, []);
-
-  // Pergerakan Sampah Berjalan
-  useEffect(() => {
-    if (gameState !== 'PLAYING') return;
-
-    const moveInterval = setInterval(() => {
-      setActiveTrash((prev) => {
-        let didLoseLife = false;
-        const updated = prev
-          .filter((t) => {
-            if (handledTrashIdsRef.current.has(t.instanceId)) {
-              return false;
-            }
-            return true;
-          })
-          .map((t) => {
-            if (draggingIdRef.current === t.instanceId) {
-              return t;
-            }
-            return { ...t, x: t.x - speed };
-          })
-          .filter((t) => {
-            if (draggingIdRef.current === t.instanceId) {
-              return true;
-            }
-            if (t.x < -80) {
-              didLoseLife = true;
-              handledTrashIdsRef.current.add(t.instanceId);
-              return false;
-            }
-            return true;
-          });
-
-        if (didLoseLife) {
-          loseLife();
+        if (typeof window !== 'undefined' && window.__ecoMateriAutoAudio && window.__ecoMateriAutoAudio.__ecoSource === 'materi') {
+          window.__ecoMateriAutoAudio = null;
         }
+      } catch (e) {}
+    };
+  }, [isMusicPlaying]);
 
-        return updated;
-      });
-    }, 20);
-
-    return () => clearInterval(moveInterval);
-  }, [speed, gameState, loseLife]);
-
-  // Fungsi saveScore terhubung ke Railway
-  const saveScore = async (name) => {
-    if (!name.trim()) return; 
-    
-    try {
-      const response = await fetch('https://eco-sorter-production.up.railway.app/save_score.php', {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({ 
-          nickname: name.trim(), 
-          score: parseInt(score, 10) 
-        }),
-      });
-
-      const result = await response.json();
-
-      if (result.status === "success") {
-        setNotificationMessage('Skor berhasil disimpan!');
-        setNotificationType('success');
-        setShowNotification(true);
-        setTimeout(() => {
-          navigate('/', { replace: true });
-        }, 1500);
-      } else {
-        throw new Error(result.message || "Gagal menyimpan");
-      }
-    } catch (error) {
-      console.error('Gagal menyimpan skor:', error);
-      setNotificationMessage('Gagal menyimpan skor. Coba lagi.');
-      setNotificationType('error');
-      setShowNotification(true);
-      setTimeout(() => setShowNotification(false), 3000);
+  const toggleMusic = () => {
+    const audio = materiAudioRef.current || document.getElementById('materi-bgm');
+    if (!audio) return;
+    const nextPlaying = !isMusicPlaying;
+    if (nextPlaying) {
+      audio.play().catch(() => {});
+    } else {
+      audio.pause();
+      stopExternalMateriAudio();
     }
+    setIsMusicPlaying(nextPlaying);
+    localStorage.setItem('eco-music-muted', nextPlaying ? 'false' : 'true');
   };
 
-  const handleDrop = (trash, endX, endY) => {
-    const { anorganik, organik, b3 } = binPositions;
-
-    const isOverOrganik =
-      organik &&
-      endX >= organik.left &&
-      endX <= organik.right &&
-      endY >= organik.top &&
-      endY <= organik.bottom;
-
-    const isOverAnorganik =
-      anorganik &&
-      endX >= anorganik.left &&
-      endX <= anorganik.right &&
-      endY >= anorganik.top &&
-      endY <= anorganik.bottom;
-
-    const isOverB3 =
-      b3 &&
-      endX >= b3.left &&
-      endX <= b3.right &&
-      endY >= b3.top &&
-      endY <= b3.bottom;
-
-    let correct = false;
-    if (trash.type === 'organik' && isOverOrganik) correct = true;
-    if (trash.type === 'anorganik' && isOverAnorganik) correct = true;
-    if (trash.type === 'b3' && isOverB3) correct = true;
-
-    if (handledTrashIdsRef.current.has(trash.instanceId)) {
-      return;
-    }
-
-    if (correct) {
-      const newScore = score + 10;
-      setScore(newScore);
-      if (newScore > 0 && newScore % 50 === 0) {
-        setLevel((l) => l + 1);
-      }
-    } else if (isOverOrganik || isOverAnorganik || isOverB3) {
-      loseLife();
-    }
-
-    handledTrashIdsRef.current.add(trash.instanceId);
-    setActiveTrash((prev) => prev.filter((t) => t.instanceId !== trash.instanceId));
-  };
-
-  const resetState = () => {
-    handledTrashIdsRef.current.clear();
-    draggingIdRef.current = null;
-    setScore(0);
-    setLives(3);
-    setHearts([true, true, true]);
-    setLevel(1);
-    setNickname('');
-    setNotificationMessage('');
-    setNotificationType('success');
-    setShowNotification(false);
-    setShowTutorial(true); // Tutorial diaktifkan kembali jika mengulang game
-
-    const safeWidth = typeof window !== 'undefined' ? window.innerWidth : 800;
-    const s1 = DATA_SAMPAH[Math.floor(Math.random() * DATA_SAMPAH.length)];
-    const s2 = DATA_SAMPAH[Math.floor(Math.random() * DATA_SAMPAH.length)];
-    const s3 = DATA_SAMPAH[Math.floor(Math.random() * DATA_SAMPAH.length)];
-
-    setActiveTrash([
-      { ...s1, instanceId: Date.now() + 0.1, x: safeWidth * 0.65, y: TRASH_Y },
-      { ...s2, instanceId: Date.now() + 0.2, x: safeWidth * 0.80, y: TRASH_Y },
-      { ...s3, instanceId: Date.now() + 0.3, x: safeWidth * 0.95, y: TRASH_Y }
-    ]);
-    setGameState('PLAYING');
-  };
-
-  const restartGame = () => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-    }
-    resetState();
-    if (!isMuted && audioRef.current) {
-      audioRef.current.play().catch(() => {});
-    }
-  };
-
-  const goHome = () => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-    }
-    navigate('/', { replace: true });
-  };
-
+  // Jika sedang cek akses, jangan render apapun
   if (isChecking) {
     return null;
   }
 
   return (
-    <div className="relative w-full h-screen h-dvh min-h-[320px] overflow-hidden select-none bg-slate-900">
-      {/* Background Rumput */}
-      <div className="absolute inset-0 bg-gradient-to-b from-green-400 via-green-500 to-green-600" />
-      
-      {/* Area Air/Jalur Sungai */}
-      <div className="absolute bottom-0 left-0 right-0 h-[22dvh] bg-gradient-to-t from-blue-500 via-blue-400 to-blue-300 shadow-inner" />
+    <div className="relative w-full h-screen h-dvh overflow-hidden bg-slate-900 font-sans select-none flex items-center justify-center">
+      {/* Background Latar */}
+      <img
+        src="/assets/materi/BGgHome.jpg"
+        alt="Latar Taman"
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      />
 
-      {/* UI HUD Atas */}
-      <div className="absolute top-2 left-2 right-2 flex items-center gap-2 sm:gap-3 z-50">
-        <div className="bg-orange-200/95 border border-orange-800 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl font-black text-[11px] sm:text-sm md:text-base shadow-sm text-orange-950 min-w-[72px] text-center">
-          Skor: {score}
-        </div>
-        
-        <div className="bg-green-200/95 border border-green-800 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl font-black text-[11px] sm:text-sm md:text-base shadow-sm text-green-950 min-w-[56px] text-center">
-          Lvl: {level}
-        </div>
-        
-        <div className="bg-red-200/95 border border-red-800 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl flex items-center gap-1 shadow-sm">
-          {hearts.map((heart, i) => (
-            <motion.span
-              key={i}
-              animate={{
-                scale: heart ? 1 : 0.7,
-                opacity: heart ? 1 : 0.25,
-              }}
-              transition={{ duration: 0.25 }}
-              className="text-sm sm:text-base"
-            >
-              {heart ? '❤️' : '🖤'}
-            </motion.span>
-          ))}
-        </div>
+      {/* Tombol Musik + Home Kanan Atas */}
+      <div className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 z-50 flex items-center gap-1 sm:gap-2">
+        <button
+          onClick={toggleMusic}
+          className="hover:scale-110 active:scale-95 transition-transform touch-manipulation focus:outline-none"
+        >
+          <img
+            src={isMusicPlaying ? '/assets/materi/TbMusik.png' : '/assets/materi/TbMusik_Mati.png'}
+            alt={isMusicPlaying ? 'Musik' : 'Musik Mati'}
+            className="w-7 h-7 sm:w-11 sm:h-11 md:w-12 md:h-12 lg:w-14 lg:h-14 object-contain"
+          />
+        </button>
 
-        {/* Kontrol Kanan Atas */}
-        <div className="ml-auto flex items-center gap-2">
-          <button
-            onClick={() => setIsMuted((prev) => !prev)}
-            className="hover:scale-110 active:scale-95 transition-transform touch-manipulation focus:outline-none"
-            title={isMuted ? 'Nyalakan Musik' : 'Matikan Musik'}
-          >
-            <img 
-              src={isMuted ? '/assets/game/TbMusik_Mati.png' : '/assets/game/TbMusik.png'}
-              alt={isMuted ? 'Musik Mati' : 'Musik'} 
-              className="w-8 h-8 sm:w-11 sm:h-11 md:w-14 md:h-14 object-contain"
-            />
-          </button>
-
-          <button
-            onClick={restartGame}
-            className="hover:scale-110 active:scale-95 transition-transform touch-manipulation focus:outline-none"
-          >
-            <img 
-              src="/assets/game/TbReset.png" 
-              alt="Reset" 
-              className="w-8 h-8 sm:w-11 sm:h-11 md:w-14 md:h-14 object-contain"
-            />
-          </button>
-
-          <button
-            onClick={goHome}
-            className="hover:scale-110 active:scale-95 transition-transform touch-manipulation focus:outline-none"
-          >
-            <img 
-              src="/assets/game/TbHome.png" 
-              alt="Home" 
-              className="w-8 h-8 sm:w-11 sm:h-11 md:w-14 md:h-14 object-contain"
-            />
-          </button>
-        </div>
+        <button
+          onClick={() => navigate('/')}
+          className="hover:scale-110 active:scale-95 transition-transform touch-manipulation focus:outline-none"
+        >
+          <img
+            src="/assets/materi/TbHome.png"
+            alt="Ke Halaman Utama"
+            className="w-7 h-7 sm:w-11 sm:h-11 md:w-12 md:h-12 lg:w-14 lg:h-14 object-contain"
+          />
+        </button>
       </div>
 
-      {/* AREA TONG SAMPAH */}
-      <div className="absolute top-[22dvh] sm:top-[20dvh] md:top-[19dvh] w-full flex justify-around px-2 sm:px-12 z-30 pointer-events-none">
-        <div id="bin-organik" className="flex flex-col items-center pointer-events-auto">
-          <img 
-            src="/assets/game/BoxOrganik.png" 
-            className="w-16 sm:w-24 md:w-32 lg:w-36 max-h-[36vh] object-contain drop-shadow-md" 
-            alt="Organik" 
-          />
-        </div>
+      {/* Area Utama Konten Fleksibel */}
+      <div className="relative z-10 w-full h-full max-w-7xl mx-auto flex items-center justify-center px-2 sm:px-2 md:px-3 lg:px-4 gap-1 sm:gap-2">
 
-        <motion.div 
-          id="bin-anorganik" 
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          className="flex flex-col items-center pointer-events-auto"
-        >
-          <img 
-            src="/assets/game/BoxNonOrganik.png" 
-            className="w-16 sm:w-24 md:w-32 lg:w-36 max-h-[36vh] object-contain drop-shadow-md" 
-            alt="Anorganik" 
-          />
-        </motion.div>
-
-        <motion.div 
-          id="bin-b3" 
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          className="flex flex-col items-center pointer-events-auto"
-        >
-          <img 
-            src="/assets/game/BoxB3.png" 
-            className="w-16 sm:w-24 md:w-32 lg:w-36 max-h-[36vh] object-contain drop-shadow-md" 
-            alt="B3" 
-          />
-        </motion.div>
-      </div>
-
-      {/* Hamparan Animasi Tangan Penunjuk */}
-      <AnimatePresence>
-        {showTutorial && gameState === 'PLAYING' && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 pointer-events-none flex items-center justify-center"
-          >
-            {/* Teks Instruksi Melayang di Atas Aliran Air */}
-            <div className="absolute bottom-[32dvh] left-1/2 -translate-x-1/2 bg-black/75 border border-yellow-400 text-yellow-300 font-extrabold px-4 py-2 rounded-2xl text-[10px] sm:text-xs uppercase tracking-wider shadow-md animate-pulse text-center">
-              Geser sampah ke dalam tong yang cocok!
-            </div>
-
-            {/* Gerakan Menggeser Menggunakan Emoji Tangan */}
-            <motion.div
-              animate={{
-                x: ['12vw', '12vw', '-15vw', '-15vw'],
-                y: ['24vh', '24vh', '-8vh', '-8vh'],
-                scale: [1, 0.85, 0.85, 1] 
-              }}
-              transition={{
-                duration: 2.2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              className="absolute text-3xl sm:text-4xl md:text-5xl drop-shadow-lg"
-            >
-              ☝️
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* AREA LINTASAN SAMPAH BERJALAN */}
-      <AnimatePresence>
-        {activeTrash.map((trash) => (
+        {/* Gambar Orang Kiri */}
+        <div className="hidden sm:block w-[15%] md:w-[18%] lg:w-[20%] max-w-[200px] self-end mb-1 sm:mb-2 z-20 flex-shrink-0">
           <motion.img
-            key={trash.instanceId}
-            src={trash.img}
-            drag
-            dragMomentum={false}
-            dragElastic={0}
-            onDragStart={() => {
-              draggingIdRef.current = trash.instanceId;
-              setShowTutorial(false); // Tutorial langsung hancur/hilang begitu user menyentuh sampah!
-            }}
-            onDragEnd={(event, info) => {
-              handleDrop(trash, info.point.x, info.point.y);
-              draggingIdRef.current = null;
-            }}
-            className="absolute w-9 h-9 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-15 lg:h-15 cursor-grab active:cursor-grabbing z-40 touch-none object-contain"
-            style={{
-              left: trash.x,
-              bottom: trash.y,
-              transform: 'translateX(-50%)',
-            }}
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0 }}
-            whileDrag={{ scale: 1.25, zIndex: 100 }}
-            whileTap={{ scale: 1.1 }}
+            src="/assets/materi/Orang.png"
+            alt="Karakter Orang"
+            className="w-full h-auto object-contain max-h-[65vh] sm:max-h-[70vh]"
+            animate={{ y: [0, -4, 0] }}
+            transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
           />
-        ))}
-      </AnimatePresence>
+        </div>
 
-      {/* Overlay Mode Portrait */}
-      {!isLandscape && (
-        <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/90 p-4 text-center text-white">
-          <div className="max-w-md rounded-2xl border border-white/10 bg-slate-900/95 p-5 shadow-xl">
-            <h2 className="text-xl sm:text-2xl font-black">
-              Putar layar ke samping!
-            </h2>
-            <p className="mt-2 text-xs sm:text-sm text-slate-300">
-              Game seru ini hanya bisa dimainkan dalam mode landscape ya kawan.
-            </p>
+        {/* Kotak Kontainer Papan Kanan */}
+        <div className="relative w-full sm:w-[75%] md:w-[70%] lg:w-[65%] max-w-[640px] sm:max-w-none xl:max-w-[900px] 2xl:max-w-[1000px] mx-auto h-auto min-h-[62vh] min-h-[62dvh] sm:min-h-[58vh] sm:min-h-[58dvh] md:min-h-[62vh] md:min-h-[62dvh] lg:min-h-[65vh] lg:min-h-[65dvh] max-h-[88dvh] sm:max-h-[85dvh] flex items-center justify-center sm:mt-6 md:mt-8 lg:mt-12">
+          {/* Gambar Papan Kayu */}
+          <img
+            src="/assets/materi/Papan.png"
+            alt="Papan Informasi"
+            className="absolute inset-0 w-full h-full object-fill z-0 drop-shadow-xl"
+          />
+
+          {/* Teks Materi Pembelajaran Tengah Kayu */}
+          <div className="relative z-10 w-full h-full pt-2 sm:pt-3 md:pt-3 lg:pt-4 pb-11 sm:pb-12 md:pb-12 lg:pb-14 px-2 sm:px-3 md:px-4 lg:px-6 flex flex-col justify-center overflow-y-auto overflow-x-hidden overscroll-contain">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentStep.id}
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.02 }}
+                transition={{ duration: 0.15 }}
+                className="w-full min-h-0 flex items-center justify-center px-1 sm:px-0"
+              >
+                {currentStep.content}
+              </motion.div>
+            </AnimatePresence>
           </div>
-        </div>
-      )}
 
-      {/* Game Over Modal Screen */}
-      {gameState === 'GAMEOVER' && (
-        <div className="fixed inset-0 bg-black/75 flex items-center justify-center z-[100] p-2">
-          <motion.div 
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            className="bg-gradient-to-b from-white to-slate-50 p-4 sm:p-6 md:p-8 rounded-2xl text-center w-full max-w-[280px] sm:max-w-[340px] shadow-xl border-4 border-amber-400 flex flex-col"
-          >
-            <h2 className="text-xl sm:text-2xl font-black text-red-600 tracking-wide">
-              GAME OVER
-            </h2>
-            
-            <div className="my-2 bg-amber-50 rounded-xl py-2 border border-amber-200">
-              <p className="text-xs sm:text-sm font-bold text-amber-800">Skor Kamu</p>
-              <p className="text-2xl sm:text-3xl font-black text-amber-600">{score}</p>
-            </div>
+          {/* Tombol Kembali dan Lanjut */}
+          <div className="absolute bottom-1.5 sm:bottom-2 md:bottom-2.5 lg:bottom-3 left-2 right-2 sm:left-3 sm:right-3 md:left-3 md:right-3 lg:left-4 lg:right-4 z-30 flex items-center justify-between gap-1 sm:gap-2">
+            {!isFirstStep && (
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleBack}
+                className="min-h-[30px] sm:min-h-[34px] md:min-h-[36px] px-3 sm:px-4 md:px-5 lg:px-6 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[9px] sm:text-[9px] md:text-xs lg:text-xs xl:text-sm font-black text-white uppercase tracking-wider shadow-md border border-black/10 bg-gradient-to-r from-red-500 to-rose-600 shadow-[0_2px_0_rgb(159,18,57)] sm:shadow-[0_3px_0_rgb(159,18,57)] flex-shrink-0 flex items-center justify-center"
+              >
+                Kembali
+              </motion.button>
+            )}
 
-            <input
-              type="text"
-              placeholder="Ketik nickname kamu"
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
-              className="w-full px-3 py-1.5 border-2 border-slate-200 rounded-xl text-center text-xs sm:text-sm font-bold focus:border-blue-500 focus:outline-none transition-colors"
-              maxLength={15}
-              autoComplete="off"
-            />
-            
-            <div className="mt-3 flex gap-2 justify-center">
-              <button 
-                onClick={() => saveScore(nickname)}
-                disabled={!nickname.trim()}
-                className="bg-green-500 hover:bg-green-600 disabled:bg-slate-300 text-white px-4 py-1.5 rounded-xl font-black text-xs transition-colors active:scale-95 shadow-sm"
-              >
-                Simpan
-              </button>
-              <button 
-                onClick={restartGame}
-                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1.5 rounded-xl font-black text-xs transition-colors active:scale-95 shadow-sm"
-              >
-                Ulangi
-              </button>
-            </div>
-            
-            <button 
-              onClick={goHome}
-              className="mt-2.5 text-slate-400 hover:text-slate-600 text-[11px] font-bold underline"
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleNext}
+              className={`min-h-[30px] sm:min-h-[34px] md:min-h-[36px] px-3 sm:px-4 md:px-5 lg:px-6 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[9px] sm:text-[9px] md:text-xs lg:text-xs xl:text-sm font-black text-white uppercase tracking-wider shadow-md border border-black/10 ml-auto flex-shrink-0 flex items-center justify-center
+                ${isLastStep
+                  ? 'bg-gradient-to-r from-orange-500 to-amber-600 shadow-[0_2px_0_rgb(194,65,12)] sm:shadow-[0_3px_0_rgb(194,65,12)]'
+                  : 'bg-gradient-to-r from-blue-500 to-indigo-600 shadow-[0_2px_0_rgb(29,78,216)] sm:shadow-[0_3px_0_rgb(29,78,216)]'
+                }
+              `}
             >
-              Kembali ke Menu Utama
-            </button>
-          </motion.div>
-        </div>
-      )}
+              {isLastStep ? 'Mulai!' : 'Lanjut'}
+            </motion.button>
+          </div>
 
-      {/* Notification Pop-up */}
-      <AnimatePresence>
-        {showNotification && (
-          <motion.div
-            initial={{ opacity: 0, y: -20, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.9 }}
-            transition={{ duration: 0.3 }}
-            className={`fixed top-4 left-1/2 -translate-x-1/2 z-[120] px-6 py-3 rounded-xl font-black text-sm shadow-lg flex items-center gap-2 ${
-              notificationType === 'success'
-                ? 'bg-gradient-to-r from-green-400 to-green-500 text-white'
-                : 'bg-gradient-to-r from-red-400 to-red-500 text-white'
-            }`}
-          >
-            <span>{notificationType === 'success' ? '✓' : '✕'}</span>
-            {notificationMessage}
-          </motion.div>
-        )}
-      </AnimatePresence>
+        </div>
+      </div>
+      {/* Audio Materi (kontrol via tombol di pojok kanan) */}
+      <audio id="materi-bgm">
+        <source src="/assets/audio/explainer-corporate.ogg" type="audio/ogg" />
+      </audio>
     </div>
   );
 };
 
-export default Game;
+export default Materi;
